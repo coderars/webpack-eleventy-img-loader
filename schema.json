@@ -1,0 +1,46 @@
+{
+  "title": "EleventyImageLoader options",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "rename": {
+      "description": "Rename mask for the output file, which will be the [name] placeholder for Asset Modules.",
+      "type": "string"
+    },
+    "fetchFileExt": {
+      "description": "Allows to overwrite the default extension for fetch files (JSON format containing the url to the remote image)",
+      "type": "string",
+      "minLength": 3
+    },
+    "cacheDownloads": {
+      "description": "Allow to store downloaded remote images in cacheDir.",
+      "type": "boolean"
+    },
+    "cacheResults": {
+      "description": "Allow to store result (optimized) images in cacheDir.",
+      "type": "boolean"
+    },
+    "cacheDir": {
+      "description": "A path where cache files will be stored (absolute path recommended).",
+      "type": "string"
+    },
+    "cacheDuration": {
+      "description": "Sets how long a cached item (optimization/fetch result) is valid.",
+      "link": "https://www.11ty.dev/docs/plugins/cache/#change-the-cache-duration",
+      "type": "string"
+    },
+    "beforeFetch": {
+      "description": "Allows to modify URL and fetchOptions before fetching a remote image.",
+      "link": "https://www.npmjs.com/package/node-fetch#options",
+      "instanceof": "Function"
+    },
+    "debug": {
+      "description": "Use debug mode (detailed console logs).",
+      "type": "boolean"
+    }
+  },
+  "dependencies": {
+    "cacheDownloads": { "required": ["cacheDir", "cacheDuration"] },
+    "cacheResults": { "required": ["cacheDir", "cacheDuration"] }
+  }
+}

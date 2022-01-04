@@ -1,0 +1,5 @@
+☐ Purge cache
+☐ Add sharp image options
+✔ Add ability to customize fetchUrl and fetchOptions before fetching images (options.beforeFetch). @done(21-12-15 15:52)
+✔ Add tests @done(22-01-03 15:39)
+☐ Release with https://www.npmjs.com/package/standard-version
