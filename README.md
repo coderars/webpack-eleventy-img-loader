@@ -34,3 +34,11 @@ npm run test
 - Uses the [ava JavaScript test runner](https://github.com/avajs/ava) ([Assertions documentation](https://github.com/avajs/ava/blob/master/docs/03-assertions.md))
 - Requires internet connection to load remote test images (.fetch files)
 - Uses [memfs](https://www.npmjs.com/package/memfs) to write output files to an in-memory file-system (except cache files).
+
+## Contributing
+
+This package uses [commitlint](https://commitlint.js.org/) to ensure proper commit messages. Please follow the rules declared in [@commitlint/config-conventional](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional).
+
+## License
+
+[MIT](./LICENSE)
