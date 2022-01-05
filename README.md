@@ -1,5 +1,7 @@
 # webpack-eleventy-img-loader
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat)](./LICENSE)
+
 ⚠ THIS PACKAGE IS UNDER HEAVY DEVELOPMENT ⚠ USE AT YOUR OWN RISK ⚠
 
 ℹ v1.0 will be released soon. ℹ
@@ -42,7 +44,3 @@ npm run test
 ## Contributing
 
 This package uses [commitlint](https://commitlint.js.org/) to ensure proper commit messages. Please follow the rules declared in [@commitlint/config-conventional](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional).
-
-## License
-
-[MIT](./LICENSE)
