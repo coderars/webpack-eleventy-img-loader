@@ -8,7 +8,7 @@
       "type": "string"
     },
     "fetchFileExt": {
-      "description": "Allows to overwrite the default extension for fetch files (JSON format containing the url to the remote image)",
+      "description": "Allows to overwrite the default extension for fetch files (JSON format containing the URL to the remote image).",
       "type": "string",
       "minLength": 3
     },

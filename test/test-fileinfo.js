@@ -1,7 +1,7 @@
 const path = require("path");
 const fsp = require('fs/promises');
 const test = require("ava");
-const FileInfo = require("../fileinfo");
+const FileInfo = require("../src/fileinfo");
 
 async function getFileInfo(resource, options = {}) {
   const resourcePath = path.resolve(__dirname, resource); // make absolute path

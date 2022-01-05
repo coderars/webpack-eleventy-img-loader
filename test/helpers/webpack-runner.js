@@ -26,7 +26,7 @@ module.exports = (testResource, loaderOptions = {}) => {
           },
           use: [
             {
-              loader: require.resolve(path.resolve(PKG_ROOT, 'loader.js')),
+              loader: require.resolve(path.resolve(PKG_ROOT, 'src', 'loader.js')),
               options: loaderOptions
             }
           ]
