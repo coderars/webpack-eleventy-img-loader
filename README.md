@@ -8,14 +8,14 @@ The purpose of this loader is to reduce dependencies for your [11ty](https://www
 
 ## Installation
 ```
-npm install @coderars/webpack-eleventy-img-loader
+npm install webpack-eleventy-img-loader
 ```
 
 ## Required dependencies
 
 This package does not install any new dependency. It assumes you already have the following packages installed in your project:
 
-- [webpack](https://www.npmjs.com/package/webpack) - version ^5.0.0
+- [webpack](https://www.npmjs.com/package/webpack) - version 5.x
 - [@11ty/eleventy-img](https://www.npmjs.com/package/@11ty/eleventy-img) - version ^1.0.0
 - [@11ty/eleventy-cache-assets](https://www.npmjs.com/package/@11ty/eleventy-cache-assets) - version ^2.3.0
 

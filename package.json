@@ -1,5 +1,5 @@
 {
-  "name": "@coderars/webpack-eleventy-img-loader",
+  "name": "webpack-eleventy-img-loader",
   "version": "0.0.1",
   "description": "Webpack 5 image loader built around eleventy-img to convert and optimize images.",
   "publishConfig": {
@@ -36,14 +36,17 @@
   "peerDependencies": {
     "@11ty/eleventy-cache-assets": "^2.3.0",
     "@11ty/eleventy-img": "^1.0.0",
-    "webpack": "5.x"
+    "webpack": "^5.0.0"
   },
   "devDependencies": {
+    "@11ty/eleventy-cache-assets": "^2.3.0",
+    "@11ty/eleventy-img": "^1.0.0",
     "ava": "^4.0.0",
     "eslint": "^8.5.0",
     "file-type": "^16.5.3",
     "memfs": "^3.4.0",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "webpack": "^5.65.0"
   },
   "ava": {
     "failFast": false,
