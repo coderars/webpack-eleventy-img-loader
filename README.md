@@ -1,6 +1,8 @@
 # webpack-eleventy-img-loader
 
-⚠ THIS PACKAGE IS UNDER HEAVY DEVELOPMENT ‼ USE AT YOUR OWN RISK ⚠
+⚠ THIS PACKAGE IS UNDER HEAVY DEVELOPMENT ⚠ USE AT YOUR OWN RISK ⚠
+
+ℹ v1.0 will be released soon. ℹ
 
 Requires Node 12+
 
