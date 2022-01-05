@@ -26,6 +26,7 @@
   "homepage": "https://github.com/coderars/webpack-eleventy-img-loader#readme",
   "main": "src/loader.js",
   "scripts": {
+    "commitlint": "commitlint --from=main",
     "pretest": "rimraf test/.cache/*",
     "test": "eslint src/*.js test/**.js && ava",
     "posttest": "rimraf test/.cache/*",
@@ -39,6 +40,8 @@
   "devDependencies": {
     "@11ty/eleventy-cache-assets": "^2.3.0",
     "@11ty/eleventy-img": "^1.0.0",
+    "@commitlint/cli": "^16.0.1",
+    "@commitlint/config-conventional": "^16.0.0",
     "ava": "^4.0.0",
     "eslint": "^8.5.0",
     "file-type": "^16.5.3",
