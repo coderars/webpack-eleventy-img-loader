@@ -2,4 +2,6 @@
 ☐ Add sharp image options
 ✔ Add ability to customize fetchUrl and fetchOptions before fetching images (options.beforeFetch). @done(21-12-15 15:52)
 ✔ Add tests @done(22-01-03 15:39)
-☐ Release with https://www.npmjs.com/package/standard-version
+✔ Reduce size of test/images/test.jpg @done(22-01-05 16:07)
+✔ Make github repo public @done(22-01-05 15:51)
+✔ Release with https://www.npmjs.com/package/standard-version @done(22-01-05 16:08)
