@@ -1,5 +1,5 @@
 {
-  "name": "@coderars/webpack-eleventy-img-loader",
+  "name": "webpack-eleventy-img-loader",
   "version": "0.0.1",
   "description": "Webpack 5 image loader built around eleventy-img to convert and optimize images.",
   "author": {
@@ -24,16 +24,14 @@
     "url": "https://github.com/coderars/webpack-eleventy-img-loader/issues"
   },
   "homepage": "https://github.com/coderars/webpack-eleventy-img-loader#readme",
-  "publishConfig": {
-    "@coderars:registry": "https://npm.pkg.github.com"
-  },
   "main": "src/loader.js",
   "scripts": {
     "commitlint": "commitlint --from=main",
     "pretest": "rimraf test/.cache/*",
     "test": "eslint src/*.js test/**.js && ava",
     "posttest": "rimraf test/.cache/*",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "release": "standard-version"
   },
   "peerDependencies": {
     "@11ty/eleventy-cache-assets": "^2.3.0",
@@ -51,6 +49,7 @@
     "husky": "^7.0.4",
     "memfs": "^3.4.0",
     "rimraf": "^3.0.2",
+    "standard-version": "^9.3.2",
     "webpack": "^5.65.0"
   },
   "ava": {

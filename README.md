@@ -1,5 +1,7 @@
 # webpack-eleventy-img-loader
 
+⚠ THIS PACKAGE IS UNDER HEAVY DEVELOPMENT ‼ USE AT YOUR OWN RISK ⚠
+
 Requires Node 12+
 
 Webpack 5 image loader built around [@11ty/eleventy-img](https://www.npmjs.com/package/@11ty/eleventy-img) (uses [sharp](https://sharp.pixelplumbing.com/)) to convert and optimize images.
