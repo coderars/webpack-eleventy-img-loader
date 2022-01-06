@@ -80,18 +80,18 @@ When Webpack builds your project, you will have these files in your output dir (
 - bg-hero-800w-968dc568.jpeg
 - bg-hero-800w-e3b326cf.webp
 
-ℹ *Please note that the loader always normalizes .jpg to .jpeg for the output files! This rule comes from eleventy-img and it is for reason.*
+>ℹ *Please note that the loader always normalizes .jpg to .jpeg for the output files! This rule comes from eleventy-img and it is for reason.*
 
 ## Query params
 
 By default the loader only does image optimization and keeps the original format. The following query paramteres can be used to set how the output image needs to be generated:
 
-| Param  | Accepts               | Description                           |
-|--------|-----------------------|---------------------------------------|
+| Param  |        Accepts        | Description                           |
+|--------|:---------------------:|---------------------------------------|
 | `format` | `jpeg` \| `png` \| `webp` \| `avif` | Sets the format of the output image.  |
-| `width`  | number                | Resize image to the given width.      |
+| `width`  | `number`                | Resize image to the given width.      |
 
-ℹ *The current version of [eleventy-img](https://www.11ty.dev/docs/plugins/image/) does not support other modifications like setting `height` or `cropping` but a [features request](https://github.com/11ty/eleventy-img/issues/31) has already been open.*
+>ℹ *The current version of [eleventy-img](https://www.11ty.dev/docs/plugins/image/) does not support other modifications like setting `height` or `cropping` but a [features request](https://github.com/11ty/eleventy-img/issues/31) has already been open.*
 
 ## Options
 
@@ -118,7 +118,7 @@ Adds the ability to rename output file. You can use the following - always avail
 
 Example: `'[oldname]-[width]x[height]'`
 
-ℹ *For remote images `[oldname]` holds the name of the `fetch-file`, not the one found(?) in the url. Read more about [fetching remote images](#fetching-remote-images) using `.fetch` files.*
+>ℹ *For remote images `[oldname]` holds the name of the `fetch-file`, not the one found(?) in the url. Read more about [fetching remote images](#fetching-remote-images) using `.fetch` files.*
 
 **Important: Do not use extension, path, subdir, or any other webpack specific placeholders here! Extension is generated automatically based on the mime type of the output file.**
 
