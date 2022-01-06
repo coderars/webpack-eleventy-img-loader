@@ -41,7 +41,7 @@ module.exports = {
         type: 'asset', // or 'asset/resource'
         generator: {
           // just for the example (can be omitted)
-          filename: '[name]-[hash][ext]',
+          filename: '[name]-[hash:8][ext]',
         },
         use: [
           {
@@ -73,16 +73,49 @@ section.hero {
   }
 }
 ```
+**output**
+
 When Webpack builds your project, you will have these files in your output dir (and the final css will refer to them of course):
 
-- bg-hero-800w.jpeg
-- bg-hero-800w.webp
+- bg-hero-800w-968dc568.jpeg
+- bg-hero-800w-968dc568.webp
 
 *Please note that the loader always normalizes .jpg to .jpeg for the output files! This rule comes from eleventy-img and it is for reason.*
 
 ## Options
 
-Soon… Please refer to the source code until then.
+| Name           |    Type    |   Default   | Descripton                                                                                                      |
+|----------------|:----------:|:-----------:|-----------------------------------------------------------------------------------------------------------------|
+| [`rename`](#rename)         |  `{String}`  | `'[oldname]'` | Rename mask for the output file, which will be the [name] placeholder for Asset Modules.                        |
+| [`fetchFileExt`](#fetchFileExt)   |  `{String}`  |   `'fetch'`   | Allows to overwrite the default extension for fetch files (JSON format containing the URL to the remote image). |
+| [`beforeFetch`](#beforeFetch)    | `{Function}` |  `undefined`  | Allows to modify URL and fetchOptions before fetching a remote image.                                           |
+| [`cacheDownloads`](#cacheDownloads) |  `{Boolean}` |    `false`    | Allow to store downloaded remote images in cacheDir.                                                            |
+| [`cacheResults`](#cacheResults)   |  `{Boolean}` |    `false`    | Allow to store result (optimized) images in cacheDir.                                                           |
+| [`cacheDir`](#cacheDir)       |  `{String}`  |  `undefined`  | A path where cache files will be stored (absolute path recommended).                                            |
+| [`cacheDuration`](#cacheDuration)  |  `{String}`  |  `undefined`  | Sets how long a cached item (optimization/fetch result) is valid.                                               |
+| [`debug`](#debug)          |  `{Boolean}` |    `false`    | Use debug mode (detailed console logs).                                                                         |
+
+### `rename`
+
+Type: `{String}` Default: `'[oldname]'`
+
+Adds the ability to rename output file. You can use the following placeholders:
+
+- `[oldname]` - holds the original filename without the extension
+- `[width]` - the width of the output image
+- `[height]` - the height of the output image
+
+Example: `'[oldname]-[width]x[height]'`
+
+Important: **Do not use** extension, path, subdir, or any other webpack specific placeholders here! Extension is generated automatically based on the mime type of the output file.
+
+### `fetchFileExt`
+### `beforeFetch`
+### `cacheDownloads`
+### `cacheResults`
+### `cacheDir`
+### `cacheDuration`
+### `debug`
 
 ## Tests
 ```
