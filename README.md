@@ -2,9 +2,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat)](./LICENSE)
 
-⚠ THIS PACKAGE IS UNDER HEAVY DEVELOPMENT ⚠ USE AT YOUR OWN RISK ⚠
+⚠ THIS PACKAGE IS UNDER HEAVY DEVELOPMENT ⚠ USE WITH CAUTION ⚠
 
-ℹ v1.0 will be released soon. ℹ
+ℹ I'm going to release the production-ready v1.0.0 soon. ℹ
 
 Requires Node 12+
 
@@ -78,7 +78,7 @@ section.hero {
 When Webpack builds your project, you will have these files in your output dir (and the final css will refer to them of course):
 
 - bg-hero-800w-968dc568.jpeg
-- bg-hero-800w-968dc568.webp
+- bg-hero-800w-e3b326cf.webp
 
 *Please note that the loader always normalizes .jpg to .jpeg for the output files! This rule comes from eleventy-img and it is for reason.*
 
@@ -99,15 +99,17 @@ When Webpack builds your project, you will have these files in your output dir (
 
 Type: `{String}` Default: `'[oldname]'`
 
-Adds the ability to rename output file. You can use the following placeholders:
+Adds the ability to rename output file. You can use the following - always available - placeholders:
 
 - `[oldname]` - holds the original filename without the extension
-- `[width]` - the width of the output image
-- `[height]` - the height of the output image
+- `[width]` - the final width of the output image
+- `[height]` - the final height of the output image
 
 Example: `'[oldname]-[width]x[height]'`
 
-Important: **Do not use** extension, path, subdir, or any other webpack specific placeholders here! Extension is generated automatically based on the mime type of the output file.
+ℹ For remote images `[oldname]` holds the name of the `fetch-file`, not the one found(?) in the url.
+
+**Important: Do not use extension, path, subdir, or any other webpack specific placeholders here! Extension is generated automatically based on the mime type of the output file.**
 
 ### `fetchFileExt`
 ### `beforeFetch`
