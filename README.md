@@ -27,11 +27,62 @@ This package does not install any new dependency. It assumes you already have th
 
 ## Usage
 
-Todo...
+A typical use case would look like this using Webpack 5 [Asset Modules](https://webpack.js.org/guides/asset-modules):
+
+**webpack.config.js**
+```js
+module.exports = {
+  //...
+  module: {
+    rules: [
+      //...
+      {
+        test: /\.(jpe?g|png|webp|avif|tiff|fetch)$/i,
+        type: 'asset', // or 'asset/resource'
+        generator: {
+          // just for the example (can be omitted)
+          filename: '[name]-[hash][ext]',
+        },
+        use: [
+          {
+            loader: 'webpack-eleventy-img-loader',
+            options: {
+              // rename output files (this will be used for [name] above)
+              rename: '[oldname]-[width]w'
+            }
+          }
+        ]
+      },
+      // MiniCssExtractPlugin.loader
+      // css-loader
+      // sass-loader
+    ]
+  }
+};
+```
+
+Let's say you want to use it with SASS and you have some script which detects webp support:
+
+**example.scss**
+```scss
+section.hero {
+  background-image: url('/assets/images/bg-hero.jpg?width=800');
+
+  .webp & {
+    background-image: url('/assets/images/bg-hero.jpg?width=800&format=webp');
+  }
+}
+```
+When Webpack builds your project, you will have these files in your output dir (and the final css will refer to them of course):
+
+- bg-hero-800w.jpeg
+- bg-hero-800w.webp
+
+*Please note that the loader always normalizes .jpg to .jpeg for the output files! This rule comes from eleventy-img and it is for reason.*
 
 ## Options
 
-Todo...
+Soon… Please refer to the source code until then.
 
 ## Tests
 ```

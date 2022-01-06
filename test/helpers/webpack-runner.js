@@ -19,11 +19,9 @@ module.exports = (testResource, loaderOptions = {}) => {
       rules: [
         {
           test: /\.(jpe?g|png|webp|avif|tiff|fetch|rimg)$/i,
-          type: 'asset',
-          parser: {
-            // always emit file (we have assertions fot the emitted files!)
-            dataUrlCondition: () => false,
-          },
+          // always emit file (no data URIs, we have assertions fot the emitted files!)
+          // do not use type: 'asset' for the tests!
+          type: 'asset/resource',
           use: [
             {
               loader: require.resolve(path.resolve(PKG_ROOT, 'src', 'loader.js')),
