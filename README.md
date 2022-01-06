@@ -65,20 +65,20 @@ Let's say you want to use it with SASS and you have some script which detects we
 
 **example.scss**
 ```scss
-section.hero {
-  background-image: url('/assets/images/bg-hero.jpg?width=800');
+section.demo {
+  background-image: url('/assets/images/bg-demo.jpg?width=800');
 
   .webp & {
-    background-image: url('/assets/images/bg-hero.jpg?width=800&format=webp');
+    background-image: url('/assets/images/bg-demo.jpg?width=800&format=webp');
   }
 }
 ```
 **output**
 
-When Webpack builds your project, you will have these files in your output dir (and the final css will refer to them of course):
+When Webpack builds your project, you will have these files in your output dir:
 
-- bg-hero-800w-968dc568.jpeg
-- bg-hero-800w-e3b326cf.webp
+- bg-demo-800w-968dc568.jpeg
+- bg-demo-800w-e3b326cf.webp
 
 >ℹ *Please note that the loader always normalizes .jpg to .jpeg for the output files! This rule comes from eleventy-img and it is for reason.*
 
@@ -90,6 +90,8 @@ By default the loader only does image optimization and keeps the original format
 |--------|:---------------------:|---------------------------------------|
 | `format` | `jpeg` \| `png` \| `webp` \| `avif` | Sets the format of the output image.  |
 | `width`  | `number`                | Resize image to the given width.      |
+
+Example: `'bg-demo.jpg?width=800&format=webp'`
 
 >ℹ *The current version of [eleventy-img](https://www.11ty.dev/docs/plugins/image/) does not support other modifications like setting `height` or `cropping` but a [features request](https://github.com/11ty/eleventy-img/issues/31) has already been open.*
 
@@ -120,7 +122,7 @@ Example: `'[oldname]-[width]x[height]'`
 
 >ℹ *For remote images `[oldname]` holds the name of the `fetch-file`, not the one found(?) in the url. Read more about [fetching remote images](#fetching-remote-images) using `.fetch` files.*
 
-**Important: Do not use extension, path, subdir, or any other webpack specific placeholders here! Extension is generated automatically based on the mime type of the output file.**
+>⚠ **Do not use extension, path, subdir, or any other webpack specific placeholders here! Extension is generated automatically based on the mime type of the output file.**
 
 ### `fetchFileExt`
 ### `beforeFetch`
