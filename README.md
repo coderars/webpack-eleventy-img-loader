@@ -61,8 +61,6 @@ module.exports = {
 };
 ```
 
-Let's say you want to use it with SASS and you have some script which detects webp support:
-
 **example.scss**
 ```scss
 section.demo {
@@ -75,10 +73,10 @@ section.demo {
 ```
 **output**
 
-When Webpack builds your project, you will have these files in your output dir:
-
-- bg-demo-800w-968dc568.jpeg
-- bg-demo-800w-e3b326cf.webp
+```
+bg-demo-800w-968dc568.jpeg
+bg-demo-800w-e3b326cf.webp
+```
 
 >ℹ *Please note that the loader always normalizes .jpg to .jpeg for the output files! This rule comes from eleventy-img and it is for reason.*
 
@@ -91,7 +89,10 @@ By default the loader only does image optimization and keeps the original format
 | `format` | `jpeg` \| `png` \| `webp` \| `avif` | Sets the format of the output image.  |
 | `width`  | `number`                | Resize image to the given width.      |
 
-Example: `'bg-demo.jpg?width=800&format=webp'`
+**Example:**
+```js
+import image from './demo.jpg?width=800&format=webp';
+```
 
 >ℹ *The current version of [eleventy-img](https://www.11ty.dev/docs/plugins/image/) does not support other modifications like setting `height` or `cropping` but a [features request](https://github.com/11ty/eleventy-img/issues/31) has already been open.*
 
@@ -118,14 +119,71 @@ Adds the ability to rename output file. You can use the following - always avail
 - `[width]` - the final width of the output image
 - `[height]` - the final height of the output image
 
-Example: `'[oldname]-[width]x[height]'`
+**Example:**
+
+ ```js
+ '[oldname]-[width]x[height]'
+ ```
 
 >ℹ *For remote images `[oldname]` holds the name of the `fetch-file`, not the one found(?) in the url. Read more about [fetching remote images](#fetching-remote-images) using `.fetch` files.*
 
 >⚠ **Do not use extension, path, subdir, or any other webpack specific placeholders here! Extension is generated automatically based on the mime type of the output file.**
 
 ### `fetchFileExt`
+
+Type: `{String}` Default: `'fetch'`
+
+A `.fetch` file is just a simple JSON file containing the `url` of the remote image. Using this option you can change its extension.
+
+>ℹ *The value of this option must be in sync with your `Rule.test` config, otherwise the loader won't be able to process them! If you change it, change it there either.*
+
 ### `beforeFetch`
+
+Type: `{Function}` Default: `undefined`
+
+It's possible to change the request `url` and set options for [`node-fetch`](https://www.npmjs.com/package/node-fetch#options) before fetching a remote image.
+
+`function (imageUrl, resourcePath) => {String|URL|Object}`
+
+| Param  | Type | Description |
+|--------|:----:|-------------|
+| `imageUrl` | `{String}` | The `url` of the remote image. |
+| `resourcePath` | `{String}` | Local path to the current `.fetch` file. |
+
+
+**Example: returning `{Srting}`**
+```js
+beforeFetch: (imageUrl, resourcePath) => {
+  return imageUrl.replace('CMS-SERVER', 'myserver.example');
+}
+```
+
+**Example: returning `{URL}`**
+```js
+beforeFetch: (imageUrl, resourcePath) => {
+  let newURL = new URL(url);
+
+  newURL.username = process.env.SECRET_USER;
+  newURL.password = process.env.SECRET_PWD;
+  newURL.searchParams.set('somekey', 'someval');
+
+  return newURL;
+}
+```
+
+**Example: returning `{Object}`**
+```js
+beforeFetch: (imageUrl, resourcePath) => {
+  return {
+    fetchUrl: imageUrl, // {String|URL}
+    fetchOptions: {
+      // options for node-fetch
+      method: 'GET'
+    }
+  };
+}
+```
+
 ### `cacheDownloads`
 ### `cacheResults`
 ### `cacheDir`
