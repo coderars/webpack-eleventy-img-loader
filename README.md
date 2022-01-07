@@ -14,12 +14,12 @@ The purpose of this loader is to reduce dependencies for your [11ty](https://www
 
 ## Installation
 ```
-npm install webpack-eleventy-img-loader
+npm install webpack-eleventy-img-loader --save-dev
 ```
 
 ### Required dependencies
 
-This package does not install any new dependency. It assumes you already have the following packages installed in your project:
+> ⚠ **This package does not install any new dependency. It assumes you already have the following packages installed in your project:**
 
 - [webpack](https://www.npmjs.com/package/webpack) - version ^5.0.0
 - [@11ty/eleventy-img](https://www.npmjs.com/package/@11ty/eleventy-img) - version ^1.0.0
@@ -141,7 +141,7 @@ A `.fetch` file is just a simple JSON file containing the `url` of the remote im
 
 Type: `{Function}` Default: `undefined`
 
-It's possible to change the request `url` and set options for [`node-fetch`](https://www.npmjs.com/package/node-fetch#options) before fetching a remote image.
+It's possible to change the request `url` and set options for [`node-fetch`](https://www.npmjs.com/package/node-fetch#options) before [fetching a remote image](#fetching-remote-images).
 
 `function (imageUrl, resourcePath) => {String|URL|Object}`
 
@@ -171,11 +171,11 @@ beforeFetch: (imageUrl, resourcePath) => {
 }
 ```
 
-**Example: returning `{Object}`**
+**Example: returning `{Object}` with [`fetchOptions`](https://www.npmjs.com/package/node-fetch#options)**
 ```js
 beforeFetch: (imageUrl, resourcePath) => {
   return {
-    fetchUrl: imageUrl, // {String|URL}
+    fetchUrl: imageUrl, // required {String|URL}
     fetchOptions: {
       // options for node-fetch
       method: 'GET'
@@ -185,6 +185,11 @@ beforeFetch: (imageUrl, resourcePath) => {
 ```
 
 ### `cacheDownloads`
+
+Type: `{Boolean}` Default: `false`
+
+>⚠ *While this is was well tested during development, please use it with caution and make your own tests first!*
+
 ### `cacheResults`
 ### `cacheDir`
 ### `cacheDuration`
