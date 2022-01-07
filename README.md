@@ -188,7 +188,11 @@ beforeFetch: (imageUrl, resourcePath) => {
 
 Type: `{Boolean}` Default: `false`
 
->⚠ *While this is was well tested during development, please use it with caution and make your own tests first!*
+>⚠ *While this was well tested during development, please use it with caution and make your own tests first!*
+
+When enabled, the loader writes downloaded images to its permanent disk cache based on the full URL of the request (cache key). Next time, when a new build is started it validates the request URL against its cache. If the current image was found in the cache and it is not expired, it will use that instead downloading it again. 
+
+In case [when a fetch request fails](https://www.11ty.dev/docs/plugins/cache/#what-happens-with-a-request-fails) but a cache entry already exists (even if it’s expired), it will use the cached entry.
 
 ### `cacheResults`
 ### `cacheDir`

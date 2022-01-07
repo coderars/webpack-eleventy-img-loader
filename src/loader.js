@@ -101,12 +101,12 @@ class LoaderWorker {
     });
 
     // Download image using @11ty/eleventy-cache-assets
-    // Store the image in cache if option is enabled
+    // Store the image in cache (or read from) if option is enabled
     // (https://www.11ty.dev/docs/plugins/cache)
     return EleventyCache(imageUrl, {
       directory: this.options.cacheDir,
       duration: this.options.cacheDuration,
-      dryRun: this.options.cacheDownloads ? false : true, // is caching enabled?
+      dryRun: this.options.cacheDownloads ? false : true,
       type: "buffer",
       ...customOptions
     });
