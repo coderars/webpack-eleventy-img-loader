@@ -13,7 +13,8 @@ Webpack 5 image loader built around [@11ty/eleventy-img](https://www.npmjs.com/p
 The purpose of this loader is to reduce dependencies for your [11ty](https://www.11ty.dev/) and [Webpack](https://webpack.js.org/) based projects. It'll use your existing 11ty packages, so there's no need for another image processor to handle images running through Webpack. Fewer dependencies mean faster builds.
 
 ## Installation
-```
+
+```bash
 npm install webpack-eleventy-img-loader --save-dev
 ```
 
@@ -29,7 +30,8 @@ npm install webpack-eleventy-img-loader --save-dev
 
 A typical use case would look like this using Webpack 5 [Asset Modules](https://webpack.js.org/guides/asset-modules):
 
-**webpack.config.js**
+### webpack.config.js
+
 ```js
 module.exports = {
   //...
@@ -61,7 +63,8 @@ module.exports = {
 };
 ```
 
-**example.scss**
+### example.scss
+
 ```scss
 section.demo {
   background-image: url('/assets/images/bg-demo.jpg?width=800');
@@ -71,9 +74,10 @@ section.demo {
   }
 }
 ```
-**output**
 
-```
+### output
+
+```log
 bg-demo-800w-968dc568.jpeg
 bg-demo-800w-e3b326cf.webp
 ```
@@ -90,6 +94,7 @@ By default the loader only does image optimization and keeps the original format
 | `width`  | `number`                | Resize image to the given width.      |
 
 **Example:**
+
 ```js
 import image from './demo.jpg?width=800&format=webp';
 ```
@@ -101,14 +106,14 @@ import image from './demo.jpg?width=800&format=webp';
 | Name           |    Type    |   Default   | Descripton                                                                                                      |
 |----------------|:----------:|:-----------:|-----------------------------------------------------------------------------------------------------------------|
 | [`rename`](#rename)         |  `{String}`  | `'[oldname]'` | Rename mask for the output file, which will be the [name] placeholder for Asset Modules.                        |
-| [`concurrency`](#concurrency)         |  `{Number}`  | `undefined` | Maximum number of concurrency optimization processes in one time.                        |
-| [`fetchConcurrency`](#fetchconcurrency)         |  `{Number}`  | `undefined` | Maximum number of concurrency image downloads in one time.                        |
 | [`fetchFileExt`](#fetchfileext)   |  `{String}`  |   `'fetch'`   | Allows to overwrite the default extension for fetch files (JSON format containing the URL to the remote image). |
 | [`beforeFetch`](#beforefetch)    | `{Function}` |  `undefined`  | Allows to modify URL and fetchOptions before fetching a remote image.                                           |
 | [`cacheDownloads`](#cachedownloads) |  `{Boolean}` |    `false`    | Allow to store downloaded remote images in cacheDir.                                                            |
 | [`cacheResults`](#cacheresults)   |  `{Boolean}` |    `false`    | Allow to store result (optimized) images in cacheDir.                                                           |
 | [`cacheDir`](#cachedir)       |  `{String}`  |  `undefined`  | A path where cache files will be stored (absolute path recommended).                                            |
 | [`cacheDuration`](#cacheduration)  |  `{String}`  |  `undefined`  | Sets how long a cached item (optimization/fetch result) is valid.                                               |
+| [`concurrency`](#concurrency)         |  `{Number}`  | `undefined` | Maximum number of concurrency optimization processes in one time.                        |
+| [`fetchConcurrency`](#fetchconcurrency)         |  `{Number}`  | `undefined` | Maximum number of concurrency image downloads in one time.                        |
 | [`eleventyImage`](#eleventyimage)         |  `{String\|Object}`  | `'@11ty/eleventy-img'` | Allows to manually provide dependency if needed for any reason.                        |
 | [`eleventyCache`](#eleventycache)         |  `{String\|Object}`  | `'@11ty/eleventy-cache-assets'` | Allows to manually provide dependency if needed for any reason.                        |
 | [`debug`](#debug)          |  `{Boolean}` |    `false`    | Use debug mode (detailed console logs).                                                                         |
@@ -131,19 +136,9 @@ Adds the ability to rename output file. You can use the following - always avail
 
 >ℹ *For remote images `[oldname]` holds the name of the `fetch-file`, not the one found(?) in the url. Read more about [fetching remote images](#fetching-remote-images) using `.fetch` files.*
 
+**Important:**
+
 >⚠ **Do not use extension, path, subdir, or any other webpack specific placeholders here! Extension is generated automatically based on the mime type of the output file.**
-
-### `concurrency`
-
-Type: `{Number}` Default: `undefined` *(see description)*
-
-Sets the maximum number of concurrency optimization processes in one time. If set, this option is forwarded to `eleventy-img` [(see the docs)](https://www.11ty.dev/docs/plugins/image/#change-global-plugin-concurrency).
-
-### `fetchConcurrency`
-
-Type: `{Number}` Default: `undefined` *(see description)*
-
-Maximum number of concurrency image downloads in one time. If set, this option is forwarded to `eleventy-cache-assets` [(see the docs)](https://www.11ty.dev/docs/plugins/cache/#change-global-plugin-concurrency).
 
 ### `fetchFileExt`
 
@@ -166,8 +161,8 @@ It's possible to change the request `url` and set options for [`node-fetch`](htt
 | `imageUrl` | `{String}` | The `url` of the remote image. |
 | `resourcePath` | `{String}` | Local path to the current `.fetch` file. |
 
-
 **Example: returning `{Srting}`**
+
 ```js
 beforeFetch: (imageUrl, resourcePath) => {
   return imageUrl.replace('CMS-SERVER', 'myserver.example');
@@ -175,6 +170,7 @@ beforeFetch: (imageUrl, resourcePath) => {
 ```
 
 **Example: returning `{URL}`**
+
 ```js
 beforeFetch: (imageUrl, resourcePath) => {
   let newURL = new URL(url);
@@ -188,6 +184,7 @@ beforeFetch: (imageUrl, resourcePath) => {
 ```
 
 **Example: returning `{Object}` with [`fetchOptions`](https://www.npmjs.com/package/node-fetch#options)**
+
 ```js
 beforeFetch: (imageUrl, resourcePath) => {
   return {
@@ -206,13 +203,27 @@ Type: `{Boolean}` Default: `false`
 
 >⚠ *While this was well tested during development, please use it with caution and make your own tests first!*
 
-When enabled, the loader writes downloaded images to its permanent disk cache based on the full URL of the request (cache key). Next time, when a new build is started it validates the request URL against its cache. If the current image was found in the cache and it is not expired, it will use that instead downloading it again. 
+When enabled, the loader writes downloaded images to its permanent disk cache based on the full URL of the request (cache key). Next time, when a new build is started it validates the request URL against its cache. If the current image was found in the cache and it is not expired, it will use that instead downloading it again.
 
 In case [when a fetch request fails](https://www.11ty.dev/docs/plugins/cache/#what-happens-with-a-request-fails) but a cache entry already exists (even if it’s expired), it will use the cached entry.
 
 ### `cacheResults`
+
 ### `cacheDir`
+
 ### `cacheDuration`
+
+### `concurrency`
+
+Type: `{Number}` Default: `undefined` *(see description)*
+
+Sets the maximum number of concurrency optimization processes in one time. If set, this option is forwarded to `eleventy-img` [(see the docs)](https://www.11ty.dev/docs/plugins/image/#change-global-plugin-concurrency).
+
+### `fetchConcurrency`
+
+Type: `{Number}` Default: `undefined` *(see description)*
+
+Maximum number of concurrency image downloads in one time. If set, this option is forwarded to `eleventy-cache-assets` [(see the docs)](https://www.11ty.dev/docs/plugins/cache/#change-global-plugin-concurrency).
 
 ### `eleventyImage`
 
@@ -231,9 +242,11 @@ Package [`@11ty/eleventy-cache-assets`](https://www.npmjs.com/package/@11ty/elev
 ## Fetching remote images
 
 ## Tests
-```
+
+```bash
 npm run test
 ```
+
 - Uses the [ava JavaScript test runner](https://github.com/avajs/ava) ([Assertions documentation](https://github.com/avajs/ava/blob/master/docs/03-assertions.md))
 - Requires internet connection to load remote test images (.fetch files)
 - Uses [memfs](https://www.npmjs.com/package/memfs) to write output files to an in-memory file-system (except cache files).

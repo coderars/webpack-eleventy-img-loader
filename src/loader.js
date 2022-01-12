@@ -38,17 +38,17 @@ class LoaderWorker {
     this.content = content;
 
     this.options = {
-      eleventyImage: '@11ty/eleventy-img',
-      eleventyCache: '@11ty/eleventy-cache-assets',
       rename: '[oldname]',
-      concurrency: null,
-      fetchConcurrency: null,
       fetchFileExt: 'fetch',
       cacheDownloads: false,
       cacheResults: false,
       cacheDir: null,
       cacheDuration: null,
       beforeFetch: null,
+      concurrency: null,
+      fetchConcurrency: null,
+      eleventyImage: '@11ty/eleventy-img',
+      eleventyCache: '@11ty/eleventy-cache-assets',
       debug: false,
       ...userOptions
     };
