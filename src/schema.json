@@ -3,9 +3,68 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
+    "rename": {
+      "description": "Rename mask for the output file, which will be the [name] placeholder for Asset Modules.",
+      "link": "https://github.com/coderars/webpack-eleventy-img-loader#rename",
+      "type": "string"
+    },
+    "fetchFileExt": {
+      "description": "Allows to overwrite the default extension for fetch files (JSON format containing the URL to the remote image).",
+      "link": "https://github.com/coderars/webpack-eleventy-img-loader#fetchfileext",
+      "type": "string",
+      "minLength": 3
+    },
+    "beforeFetch": {
+      "description": "Allows to modify URL and fetchOptions before fetching a remote image.",
+      "link": "https://github.com/coderars/webpack-eleventy-img-loader#beforefetch",
+      "instanceof": "Function"
+    },
+    "sharpConfig": {
+      "description": "Allows to configure sharp optimization options in eleventy-img.",
+      "link": "https://github.com/coderars/webpack-eleventy-img-loader#sharpconfig",
+      "type": "object",
+      "properties": {
+        "sharpOptions": {"type": "object"},
+        "sharpWebpOptions": {"type": "object"},
+        "sharpPngOptions": {"type": "object"},
+        "sharpJpegOptions": {"type": "object"},
+        "sharpAvifOptions": {"type": "object"}
+      },
+      "additionalProperties": false
+    },
+    "cacheDownloads": {
+      "description": "Allows to store downloaded remote images in cacheDir.",
+      "link": "https://github.com/coderars/webpack-eleventy-img-loader#cachedownloads",
+      "type": "boolean"
+    },
+    "cacheResults": {
+      "description": "Allows to store result (optimized) images in cacheDir.",
+      "link": "https://github.com/coderars/webpack-eleventy-img-loader#cacheresults",
+      "type": "boolean"
+    },
+    "cacheDir": {
+      "description": "A path where cache files will be stored (absolute path recommended).",
+      "link": "https://github.com/coderars/webpack-eleventy-img-loader#cachedir",
+      "type": "string"
+    },
+    "cacheDuration": {
+      "description": "Sets how long a cached item (optimization/fetch result) is valid.",
+      "link": "https://github.com/coderars/webpack-eleventy-img-loader#cacheduration",
+      "type": "string"
+    },
+    "concurrency": {
+      "description": "Maximum number of concurrency optimization processes in one time.",
+      "link": "https://github.com/coderars/webpack-eleventy-img-loader#concurrency",
+      "type": "number"
+    },
+    "fetchConcurrency": {
+      "description": "Maximum number of concurrency image downloads in one time.",
+      "link": "https://github.com/coderars/webpack-eleventy-img-loader#fetchconcurrency",
+      "type": "number"
+    },
     "eleventyImage": {
       "description": "Allows to manually require or set the eleventy-img dependency.",
-      "link": "https://www.npmjs.com/package/@11ty/eleventy-img",
+      "link": "https://github.com/coderars/webpack-eleventy-img-loader#eleventyimage",
       "anyOf": [
         {
           "type": "string"
@@ -18,7 +77,7 @@
     },
     "eleventyCache": {
       "description": "Allows to manually require or set the eleventy-cache-assets dependency.",
-      "link": "https://www.npmjs.com/package/@11ty/eleventy-cache-assets",
+      "link": "https://github.com/coderars/webpack-eleventy-img-loader#eleventycache",
       "anyOf": [
         {
           "type": "string"
@@ -29,47 +88,9 @@
         }
       ]
     },
-    "rename": {
-      "description": "Rename mask for the output file, which will be the [name] placeholder for Asset Modules.",
-      "type": "string"
-    },
-    "concurrency": {
-      "description": "Maximum number of concurrency optimization processes in one time.",
-      "type": "number"
-    },
-    "fetchConcurrency": {
-      "description": "Maximum number of concurrency image downloads in one time.",
-      "type": "number"
-    },
-    "fetchFileExt": {
-      "description": "Allows to overwrite the default extension for fetch files (JSON format containing the URL to the remote image).",
-      "type": "string",
-      "minLength": 3
-    },
-    "cacheDownloads": {
-      "description": "Allows to store downloaded remote images in cacheDir.",
-      "type": "boolean"
-    },
-    "cacheResults": {
-      "description": "Allows to store result (optimized) images in cacheDir.",
-      "type": "boolean"
-    },
-    "cacheDir": {
-      "description": "A path where cache files will be stored (absolute path recommended).",
-      "type": "string"
-    },
-    "cacheDuration": {
-      "description": "Sets how long a cached item (optimization/fetch result) is valid.",
-      "link": "https://www.11ty.dev/docs/plugins/cache/#change-the-cache-duration",
-      "type": "string"
-    },
-    "beforeFetch": {
-      "description": "Allows to modify URL and fetchOptions before fetching a remote image.",
-      "link": "https://www.npmjs.com/package/node-fetch#options",
-      "instanceof": "Function"
-    },
     "debug": {
       "description": "Use debug mode (detailed console logs).",
+      "link": "https://github.com/coderars/webpack-eleventy-img-loader#debug",
       "type": "boolean"
     }
   },

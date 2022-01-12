@@ -14,7 +14,7 @@ The purpose of this loader is to reduce dependencies for your [11ty](https://www
 
 ## Installation
 
-```bash
+```shell
 npm install webpack-eleventy-img-loader --save-dev
 ```
 
@@ -30,7 +30,7 @@ npm install webpack-eleventy-img-loader --save-dev
 
 A typical use case would look like this using Webpack 5 [Asset Modules](https://webpack.js.org/guides/asset-modules):
 
-### webpack.config.js
+**webpack.config.js:**
 
 ```js
 module.exports = {
@@ -63,7 +63,7 @@ module.exports = {
 };
 ```
 
-### example.scss
+**example.scss:**
 
 ```scss
 section.demo {
@@ -75,7 +75,7 @@ section.demo {
 }
 ```
 
-### output
+**output:**
 
 ```log
 bg-demo-800w-968dc568.jpeg
@@ -105,9 +105,10 @@ import image from './demo.jpg?width=800&format=webp';
 
 | Name           |    Type    |   Default   | Descripton                                                                                                      |
 |----------------|:----------:|:-----------:|-----------------------------------------------------------------------------------------------------------------|
-| [`rename`](#rename)         |  `{String}`  | `'[oldname]'` | Rename mask for the output file, which will be the [name] placeholder for Asset Modules.                        |
+| [`rename`](#rename)         |  `{String}`  | `'[oldname]'` | Rename mask for the output file, which will be the `[name]` placeholder for Asset Modules.                        |
 | [`fetchFileExt`](#fetchfileext)   |  `{String}`  |   `'fetch'`   | Allows to overwrite the default extension for fetch files (JSON format containing the URL to the remote image). |
 | [`beforeFetch`](#beforefetch)    | `{Function}` |  `undefined`  | Allows to modify URL and fetchOptions before fetching a remote image.                                           |
+| [`sharpConfig`](#sharpconfig)    | `{Object}` |  `undefined`  | Allows to configure sharp optimization options for `eleventy-img`.                                           |
 | [`cacheDownloads`](#cachedownloads) |  `{Boolean}` |    `false`    | Allow to store downloaded remote images in cacheDir.                                                            |
 | [`cacheResults`](#cacheresults)   |  `{Boolean}` |    `false`    | Allow to store result (optimized) images in cacheDir.                                                           |
 | [`cacheDir`](#cachedir)       |  `{String}`  |  `undefined`  | A path where cache files will be stored (absolute path recommended).                                            |
@@ -197,11 +198,25 @@ beforeFetch: (imageUrl, resourcePath) => {
 }
 ```
 
+### `sharpConfig`
+
+Type: `{Object}` Default: `undefined`
+
+Allows to configure sharp optimization options for `eleventy-img`. See ["ADVANCED CONTROL OF SHARP IMAGE PROCESSOR"](https://www.11ty.dev/docs/plugins/image/#advanced-control-of-sharp-image-processor). Defaults of [`sharp`](https://sharp.pixelplumbing.com/api-output) will be used otherwise.
+
+**Example:**
+
+```js
+sharpConfig: {
+  sharpJpegOptions: { mozjpeg: true, quality: 85, progressive: true }
+}
+```
+
 ### `cacheDownloads`
 
 Type: `{Boolean}` Default: `false`
 
->⚠ *While this was well tested during development, please use it with caution and make your own tests first!*
+>⚠ *While this was well tested during development, please use it with caution and make your own tests first using the [`debug`](#debug) option!*
 
 When enabled, the loader writes downloaded images to its permanent disk cache based on the full URL of the request (cache key). Next time, when a new build is started it validates the request URL against its cache. If the current image was found in the cache and it is not expired, it will use that instead downloading it again.
 
@@ -243,7 +258,7 @@ Package [`@11ty/eleventy-cache-assets`](https://www.npmjs.com/package/@11ty/elev
 
 ## Tests
 
-```bash
+```shell
 npm run test
 ```
 

@@ -31,6 +31,8 @@ let debugIsEmpty = true;
 
 class LoaderWorker {
   constructor (context, content, userOptions = {}) {
+    this.timeStart = new Date();
+
     /** @type {LoaderContext} */
     this.context = context;
 
@@ -40,11 +42,12 @@ class LoaderWorker {
     this.options = {
       rename: '[oldname]',
       fetchFileExt: 'fetch',
+      beforeFetch: null,
+      sharpConfig: null,
       cacheDownloads: false,
       cacheResults: false,
       cacheDir: null,
       cacheDuration: null,
-      beforeFetch: null,
       concurrency: null,
       fetchConcurrency: null,
       eleventyImage: '@11ty/eleventy-img',
@@ -54,7 +57,13 @@ class LoaderWorker {
     };
 
     this.fileInfo = new FileInfo(context.resource, content, this.options);
-    this.timeStart = new Date();
+
+    // this will be both used for output image and cacheKey generation!!
+    this.imageOutParams = {
+      widths: [this.fileInfo.toWidth ?? null],
+      formats: [this.fileInfo.toFormat ?? null],
+      ...this.options.sharpConfig
+    };
   }
 
   /**
@@ -116,7 +125,7 @@ class LoaderWorker {
   }
 
   /**
-   * Init cache system if enabled.
+   * Init cache system for result files (if enabled).
    * Failsafe (exceptions are gracefully converted to warnings, cache disregarded)
    * 
    * @param {Buffer} inputBuffer - The buffer holding the source image.
@@ -130,16 +139,17 @@ class LoaderWorker {
 
     if (this.options.cacheResults) {
       try {
-        const cacheId = createHash('md4')
-          .update(this.context.resource)
-          // .update(String(Buffer.byteLength(buffer))) // instead content hash (faster)
-          .update(inputBuffer)
+        const cacheKey = createHash('md4')
+          .update(this.context.resource) // path to the local resource file (image or fetch file with query params)
+          .update(JSON.stringify(this.imageOutParams)) // size, format, sharp config, etc (options to eleventy-img)
+          // .update(String(Buffer.byteLength(buffer))) //idea: instead content hash (faster)
+          .update(inputBuffer) // buffer holding binary content of the image beeing processed
           .digest('hex');
 
         const { AssetCache } = this.eleventyCache;
 
         // https://www.11ty.dev/docs/plugins/cache/#manually-store-your-own-data-in-the-cache
-        const cache = new AssetCache(cacheId, this.options.cacheDir);
+        const cache = new AssetCache(cacheKey, this.options.cacheDir);
 
         if (cache.isCacheValid(this.options.cacheDuration)) {
           result.imageDataFound = await cache.getCachedValue();
@@ -184,12 +194,7 @@ class LoaderWorker {
       dryRun: true, // important!!: do not write any output to disk, we need only the result buffer from stats!
       urlPath: '', // has no effect in our case
       outputDir: '', // has no effect in our case
-      widths: [this.fileInfo.toWidth ?? null],
-      formats: [this.fileInfo.toFormat ?? null],
-      sharpPngOptions: {
-        palette: true,
-        compressionLevel: 9 //def:6
-      }
+      ...this.imageOutParams // this is what really matters! (see constructor)
     });
 
     let resultFormat = Object.keys(stats)[0];

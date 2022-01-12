@@ -40,13 +40,16 @@ async function macro(t, input) {
 }
 
 /**
- * PEERDEPENDENCIES TEST
+ * GENERAL OPTIONS TEST
  */
 
 test('PeerDependenncies manually as require', macro, {
   testResource: './images/test.jpg',
   loaderOptions: {
     rename: 'peerdeps-require',
+    sharpConfig: {
+      sharpJpegOptions: { mozjpeg: true, quality: 80, progressive: true }
+    },
     concurrency: 4,
     fetchConcurrency: 4,
     eleventyImage: require('@11ty/eleventy-img'),
