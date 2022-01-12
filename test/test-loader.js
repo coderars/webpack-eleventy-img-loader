@@ -40,6 +40,23 @@ async function macro(t, input) {
 }
 
 /**
+ * PEERDEPENDENCIES TEST
+ */
+
+test('PeerDependenncies manually as require', macro, {
+  testResource: './images/test.jpg',
+  loaderOptions: {
+    rename: 'peerdeps-require',
+    concurrency: 4,
+    fetchConcurrency: 4,
+    eleventyImage: require('@11ty/eleventy-img'),
+    eleventyCache: require('@11ty/eleventy-cache-assets'),
+  },
+  expectedFilename: 'peerdeps-require.jpeg',
+  expectedMime: 'image/jpeg',
+});
+
+/**
  * LOCAL IMAGE TESTS
  */
 

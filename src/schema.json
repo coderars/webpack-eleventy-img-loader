@@ -3,9 +3,43 @@
   "type": "object",
   "additionalProperties": false,
   "properties": {
+    "eleventyImage": {
+      "description": "Allows to manually require or set the eleventy-img dependency.",
+      "link": "https://www.npmjs.com/package/@11ty/eleventy-img",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "instanceof": "Function",
+          "required": ["Image", "generateHTML"]
+        }
+      ]
+    },
+    "eleventyCache": {
+      "description": "Allows to manually require or set the eleventy-cache-assets dependency.",
+      "link": "https://www.npmjs.com/package/@11ty/eleventy-cache-assets",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "instanceof": "Function",
+          "required": ["AssetCache", "RemoteAssetCache"]
+        }
+      ]
+    },
     "rename": {
       "description": "Rename mask for the output file, which will be the [name] placeholder for Asset Modules.",
       "type": "string"
+    },
+    "concurrency": {
+      "description": "Maximum number of concurrency optimization processes in one time.",
+      "type": "number"
+    },
+    "fetchConcurrency": {
+      "description": "Maximum number of concurrency image downloads in one time.",
+      "type": "number"
     },
     "fetchFileExt": {
       "description": "Allows to overwrite the default extension for fetch files (JSON format containing the URL to the remote image).",
@@ -13,11 +47,11 @@
       "minLength": 3
     },
     "cacheDownloads": {
-      "description": "Allow to store downloaded remote images in cacheDir.",
+      "description": "Allows to store downloaded remote images in cacheDir.",
       "type": "boolean"
     },
     "cacheResults": {
-      "description": "Allow to store result (optimized) images in cacheDir.",
+      "description": "Allows to store result (optimized) images in cacheDir.",
       "type": "boolean"
     },
     "cacheDir": {

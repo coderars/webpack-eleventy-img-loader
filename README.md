@@ -21,9 +21,9 @@ npm install webpack-eleventy-img-loader --save-dev
 
 > ⚠ **This package does not install any new dependency. It assumes you already have the following packages installed in your project:**
 
-- [webpack](https://www.npmjs.com/package/webpack) - version ^5.0.0
-- [@11ty/eleventy-img](https://www.npmjs.com/package/@11ty/eleventy-img) - version ^1.0.0
-- [@11ty/eleventy-cache-assets](https://www.npmjs.com/package/@11ty/eleventy-cache-assets) - version ^2.3.0
+- [webpack](https://www.npmjs.com/package/webpack) — version ^5.0.0
+- [@11ty/eleventy-img](https://www.npmjs.com/package/@11ty/eleventy-img) — version ^1.0.0 — *([see option](#eleventyimage))*
+- [@11ty/eleventy-cache-assets](https://www.npmjs.com/package/@11ty/eleventy-cache-assets) — version ^2.3.0 — *([see option](#eleventycache))*
 
 ## Usage
 
@@ -101,12 +101,16 @@ import image from './demo.jpg?width=800&format=webp';
 | Name           |    Type    |   Default   | Descripton                                                                                                      |
 |----------------|:----------:|:-----------:|-----------------------------------------------------------------------------------------------------------------|
 | [`rename`](#rename)         |  `{String}`  | `'[oldname]'` | Rename mask for the output file, which will be the [name] placeholder for Asset Modules.                        |
-| [`fetchFileExt`](#fetchFileExt)   |  `{String}`  |   `'fetch'`   | Allows to overwrite the default extension for fetch files (JSON format containing the URL to the remote image). |
-| [`beforeFetch`](#beforeFetch)    | `{Function}` |  `undefined`  | Allows to modify URL and fetchOptions before fetching a remote image.                                           |
-| [`cacheDownloads`](#cacheDownloads) |  `{Boolean}` |    `false`    | Allow to store downloaded remote images in cacheDir.                                                            |
-| [`cacheResults`](#cacheResults)   |  `{Boolean}` |    `false`    | Allow to store result (optimized) images in cacheDir.                                                           |
-| [`cacheDir`](#cacheDir)       |  `{String}`  |  `undefined`  | A path where cache files will be stored (absolute path recommended).                                            |
-| [`cacheDuration`](#cacheDuration)  |  `{String}`  |  `undefined`  | Sets how long a cached item (optimization/fetch result) is valid.                                               |
+| [`concurrency`](#concurrency)         |  `{Number}`  | `undefined` | Maximum number of concurrency optimization processes in one time.                        |
+| [`fetchConcurrency`](#fetchconcurrency)         |  `{Number}`  | `undefined` | Maximum number of concurrency image downloads in one time.                        |
+| [`fetchFileExt`](#fetchfileext)   |  `{String}`  |   `'fetch'`   | Allows to overwrite the default extension for fetch files (JSON format containing the URL to the remote image). |
+| [`beforeFetch`](#beforefetch)    | `{Function}` |  `undefined`  | Allows to modify URL and fetchOptions before fetching a remote image.                                           |
+| [`cacheDownloads`](#cachedownloads) |  `{Boolean}` |    `false`    | Allow to store downloaded remote images in cacheDir.                                                            |
+| [`cacheResults`](#cacheresults)   |  `{Boolean}` |    `false`    | Allow to store result (optimized) images in cacheDir.                                                           |
+| [`cacheDir`](#cachedir)       |  `{String}`  |  `undefined`  | A path where cache files will be stored (absolute path recommended).                                            |
+| [`cacheDuration`](#cacheduration)  |  `{String}`  |  `undefined`  | Sets how long a cached item (optimization/fetch result) is valid.                                               |
+| [`eleventyImage`](#eleventyimage)         |  `{String\|Object}`  | `'@11ty/eleventy-img'` | Allows to manually provide dependency if needed for any reason.                        |
+| [`eleventyCache`](#eleventycache)         |  `{String\|Object}`  | `'@11ty/eleventy-cache-assets'` | Allows to manually provide dependency if needed for any reason.                        |
 | [`debug`](#debug)          |  `{Boolean}` |    `false`    | Use debug mode (detailed console logs).                                                                         |
 
 ### `rename`
@@ -128,6 +132,18 @@ Adds the ability to rename output file. You can use the following - always avail
 >ℹ *For remote images `[oldname]` holds the name of the `fetch-file`, not the one found(?) in the url. Read more about [fetching remote images](#fetching-remote-images) using `.fetch` files.*
 
 >⚠ **Do not use extension, path, subdir, or any other webpack specific placeholders here! Extension is generated automatically based on the mime type of the output file.**
+
+### `concurrency`
+
+Type: `{Number}` Default: `undefined` *(see description)*
+
+Sets the maximum number of concurrency optimization processes in one time. If set, this option is forwarded to `eleventy-img` [(see the docs)](https://www.11ty.dev/docs/plugins/image/#change-global-plugin-concurrency).
+
+### `fetchConcurrency`
+
+Type: `{Number}` Default: `undefined` *(see description)*
+
+Maximum number of concurrency image downloads in one time. If set, this option is forwarded to `eleventy-cache-assets` [(see the docs)](https://www.11ty.dev/docs/plugins/cache/#change-global-plugin-concurrency).
 
 ### `fetchFileExt`
 
@@ -197,6 +213,19 @@ In case [when a fetch request fails](https://www.11ty.dev/docs/plugins/cache/#wh
 ### `cacheResults`
 ### `cacheDir`
 ### `cacheDuration`
+
+### `eleventyImage`
+
+Type: `{String|Object}` Default: `'@11ty/eleventy-img'`
+
+Package [`@11ty/eleventy-img`](https://www.npmjs.com/package/@11ty/eleventy-img) will be automatically loaded, but it's possible to set it manually if needed. Load it with `require` or give an exact `path` to the package.
+
+### `eleventyCache`
+
+Type: `{String|Object}` Default: `'@11ty/eleventy-cache-assets'`
+
+Package [`@11ty/eleventy-cache-assets`](https://www.npmjs.com/package/@11ty/eleventy-cache-assets) will be automatically loaded, but it's possible to set it manually if needed. Load it with `require` or give an exact `path` to the package.
+
 ### `debug`
 
 ## Fetching remote images

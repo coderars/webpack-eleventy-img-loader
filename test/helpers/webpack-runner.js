@@ -1,3 +1,4 @@
+// https://webpack.js.org/contribute/writing-a-loader/#testing
 const path = require("path");
 const webpack = require('webpack');
 const { createFsFromVolume, Volume } = require("memfs");
@@ -40,14 +41,9 @@ module.exports = (testResource, loaderOptions = {}) => {
   compiler.outputFileSystem = memFs;
 
   return new Promise((resolve, reject) => {
-    compiler.run((error, stats) => {
-      if (!error && stats.compilation.errors.length) {
-        reject(stats.compilation.errors[0]);
-        return;
-      } else if (error) {
-        reject(error);
-        return;
-      }
+    compiler.run((err, stats) => {
+      if (err) reject(err);
+      if (stats.hasErrors()) reject(stats.toJson().errors);
       
       resolve({
         assets: stats.compilation.assets,

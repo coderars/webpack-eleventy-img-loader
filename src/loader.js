@@ -1,11 +1,12 @@
+// https://webpack.js.org/contribute/writing-a-loader
+// https://webpack.js.org/api/loaders/
 const schema = require("./schema.json");
 const path = require("path");
 const { createHash } = require("crypto");
 const assert = require('assert');
-const EleventyImage = require('@11ty/eleventy-img');
-const EleventyCache = require("@11ty/eleventy-cache-assets");
 const FileInfo = require("./fileinfo");
 const LoaderError = require('./error');
+const peerDependencies = require('./peerdeps');
 
 const LOADERNAME = 'WebpackEleventyImgLoader';
 const LOADER_TIME_INIT = new Date();
@@ -29,17 +30,19 @@ let debugIsEmpty = true;
  */
 
 class LoaderWorker {
-  /**
-   * @param {LoaderContext} context 
-   * @param {Buffer} content 
-   * @param {Object} userOptions 
-   */
   constructor (context, content, userOptions = {}) {
+    /** @type {LoaderContext} */
     this.context = context;
+
+    /** @type {Buffer} */
     this.content = content;
 
     this.options = {
+      eleventyImage: '@11ty/eleventy-img',
+      eleventyCache: '@11ty/eleventy-cache-assets',
       rename: '[oldname]',
+      concurrency: null,
+      fetchConcurrency: null,
       fetchFileExt: 'fetch',
       cacheDownloads: false,
       cacheResults: false,
@@ -103,7 +106,7 @@ class LoaderWorker {
     // Download image using @11ty/eleventy-cache-assets
     // Store the image in cache (or read from) if option is enabled
     // (https://www.11ty.dev/docs/plugins/cache)
-    return EleventyCache(imageUrl, {
+    return this.eleventyCache(imageUrl, {
       directory: this.options.cacheDir,
       duration: this.options.cacheDuration,
       dryRun: this.options.cacheDownloads ? false : true,
@@ -133,8 +136,10 @@ class LoaderWorker {
           .update(inputBuffer)
           .digest('hex');
 
+        const { AssetCache } = this.eleventyCache;
+
         // https://www.11ty.dev/docs/plugins/cache/#manually-store-your-own-data-in-the-cache
-        const cache = new EleventyCache.AssetCache(cacheId, this.options.cacheDir);
+        const cache = new AssetCache(cacheId, this.options.cacheDir);
 
         if (cache.isCacheValid(this.options.cacheDuration)) {
           result.imageDataFound = await cache.getCachedValue();
@@ -175,7 +180,7 @@ class LoaderWorker {
    * @returns {Promise<ImageData>} ImageData object
    */
   async processImageBuffer(buffer) {
-    let stats = await EleventyImage(buffer, {
+    let stats = await this.eleventyImg(buffer, {
       dryRun: true, // important!!: do not write any output to disk, we need only the result buffer from stats!
       urlPath: '', // has no effect in our case
       outputDir: '', // has no effect in our case
@@ -270,6 +275,12 @@ class LoaderWorker {
    * @returns {Promise<Buffer>}
    */
   async start() {
+    // init eleventy dependencies (singleton promise, loads only once!)
+    const deps = await peerDependencies(this.options);
+
+    this.eleventyImg = deps.eleventyImg;
+    this.eleventyCache = deps.eleventyCache;
+
     // get the buffer first we are going to optimize
     const inputBuffer = await (() => {
       if (this.fileInfo.isFetchFile) {
