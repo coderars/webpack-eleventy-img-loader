@@ -269,7 +269,7 @@ class LoaderWorker {
   debug(topic, ...args) {
     if (this.options.debug) {
       let loaderName = debugIsEmpty ? `\n[${LOADERNAME}]` : `[${LOADERNAME}]`;
-      console.debug(loaderName, topic, ...args);
+      console.debug(loaderName, `${topic}:`, ...args);
       debugIsEmpty = false;
     }
   }

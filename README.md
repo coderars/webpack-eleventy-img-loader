@@ -4,11 +4,9 @@
 
 ⚠ THIS PACKAGE IS UNDER HEAVY DEVELOPMENT ⚠ USE WITH CAUTION ⚠
 
-ℹ I'm going to release a production-ready version soon. ℹ
+Requires Node 12+ and Webpack 5+
 
-Requires Node 12+
-
-Webpack 5 image loader built around [@11ty/eleventy-img](https://www.npmjs.com/package/@11ty/eleventy-img) (uses [sharp](https://sharp.pixelplumbing.com/)) to convert and optimize images. With the power of [`eleventy-img`](https://www.11ty.dev/docs/plugins/image/#usage) this loader can also download (and cache) remote images - e.g. from your headless CMS - via [fetch files](#fetching-remote-images).
+UNOFFICIAL image loader built around [@11ty/eleventy-img](https://www.npmjs.com/package/@11ty/eleventy-img) (uses [sharp](https://sharp.pixelplumbing.com/)) to convert and optimize images. With the power of [`eleventy-img`](https://www.11ty.dev/docs/plugins/image/#usage) this loader can also download (and cache) remote images - e.g. from your headless CMS - using [fetch files](#fetching-remote-images).
 
 The purpose of this loader is to reduce dependencies for your [11ty](https://www.11ty.dev/) and [Webpack](https://webpack.js.org/) based projects. It'll use your existing 11ty packages, so there's no need for another image processor to handle images running through Webpack. Fewer dependencies mean faster builds.
 
@@ -20,7 +18,7 @@ npm install webpack-eleventy-img-loader --save-dev
 
 ### Required dependencies
 
-> ⚠ **This package does not install any new dependency. It assumes you already have the following packages installed in your project:**
+> ⚠ **This package has only `peerDependencies` as listed below, so probably you already have them in your 11ty based project — means no new dependencies will be installed in that case.**
 
 - [webpack](https://www.npmjs.com/package/webpack) — version ^5.0.0
 - [@11ty/eleventy-img](https://www.npmjs.com/package/@11ty/eleventy-img) — version ^1.0.0 — *([see option](#eleventyimage))*
@@ -28,7 +26,7 @@ npm install webpack-eleventy-img-loader --save-dev
 
 ## Usage
 
-A typical use case would look like this using Webpack 5 [Asset Modules](https://webpack.js.org/guides/asset-modules):
+A typical use case to extract images from CSS using Webpack 5 [Asset Modules](https://webpack.js.org/guides/asset-modules):
 
 **webpack.config.js:**
 
@@ -99,7 +97,7 @@ By default the loader only does image optimization and keeps the original format
 import image from './demo.jpg?width=800&format=webp';
 ```
 
->ℹ *The current version of [eleventy-img](https://www.11ty.dev/docs/plugins/image/) does not support other modifications like setting `height` or `cropping` but a [features request](https://github.com/11ty/eleventy-img/issues/31) has already been open.*
+>ℹ *The current version of [eleventy-img](https://www.11ty.dev/docs/plugins/image/) does not support other modifications like setting `height` or `cropping` but a [features request](https://github.com/11ty/eleventy-img/issues/31) has already been open. Additional parameters are expected to be added.*
 
 ## Options
 
@@ -111,8 +109,8 @@ import image from './demo.jpg?width=800&format=webp';
 | [`sharpConfig`](#sharpconfig)    | `{Object}` |  `undefined`  | Allows to configure sharp optimization options for `eleventy-img`.                                           |
 | [`cacheDownloads`](#cachedownloads) |  `{Boolean}` |    `false`    | Allow to store downloaded remote images in cacheDir.                                                            |
 | [`cacheResults`](#cacheresults)   |  `{Boolean}` |    `false`    | Allow to store result (optimized) images in cacheDir.                                                           |
-| [`cacheDir`](#cachedir)       |  `{String}`  |  `undefined`  | A path where cache files will be stored (absolute path recommended).                                            |
-| [`cacheDuration`](#cacheduration)  |  `{String}`  |  `undefined`  | Sets how long a cached item (optimization/fetch result) is valid.                                               |
+| [`cacheDir`](#cachedir)       |  `{String}`  |  `undefined`  | A path where cache files will be stored.                                            |
+| [`cacheDuration`](#cacheduration)  |  `{String}`  |  `undefined`  | Sets how long a cached item (output result / fetched remote image) is valid.                                               |
 | [`concurrency`](#concurrency)         |  `{Number}`  | `undefined` | Maximum number of concurrency optimization processes in one time.                        |
 | [`fetchConcurrency`](#fetchconcurrency)         |  `{Number}`  | `undefined` | Maximum number of concurrency image downloads in one time.                        |
 | [`eleventyImage`](#eleventyimage)         |  `{String\|Object}`  | `'@11ty/eleventy-img'` | Allows to manually provide dependency if needed for any reason.                        |
@@ -214,7 +212,7 @@ sharpConfig: {
 
 ### `cacheDownloads`
 
-Type: `{Boolean}` Default: `false`
+Type: `{Boolean}` Default: `false` Required options: [`cacheDir`](#cachedir), [`cacheDuration`](#cacheduration)
 
 >⚠ *While this was well tested during development, please use it with caution and make your own tests first using the [`debug`](#debug) option!*
 
@@ -224,9 +222,44 @@ In case [when a fetch request fails](https://www.11ty.dev/docs/plugins/cache/#wh
 
 ### `cacheResults`
 
+Type: `{Boolean}` Default: `false` Required options: [`cacheDir`](#cachedir), [`cacheDuration`](#cacheduration)
+
+>⚠ *While this was well tested during development, please use it with caution and make your own tests first using the [`debug`](#debug) option!*
+
+When enabled, the loader writes generated images to its permanent disk cache. Next time, when a new build is started it validates input images and their parameters against the cache. When a cached item for this condition was found and it is not expired, that will be immediately returned to Webpack instead re-generating the same file.
+
+The `cacheKey` is calculated using the hash sum of:
+
+- the full `path` to the local resource file (image or fetch file with query params)
+- options for `eleventy-img` (size, format, sharp config, etc)
+- the `Buffer` holding binary content of the input image beeing processed
+
 ### `cacheDir`
 
+Type: `{String}` Default: `undefined`
+
+A path where cache files will be stored. Will be created if not exits.
+
 ### `cacheDuration`
+
+Type: `{String}` Default: `undefined`
+
+Sets how long a cached item (output result / fetched remote image) is valid. This option is used by `eleventy-cache-assets` [(original docs)](https://www.11ty.dev/docs/plugins/cache/#change-the-cache-duration).
+
+**Example:**
+
+```js
+cacheDuration: "1d" // file expires after 1 day
+```
+
+Where:
+
+- `s` is seconds
+- `m` is minutes
+- `h` is hours
+- `d` is days
+- `w` is weeks
+- `y` is years
 
 ### `concurrency`
 
@@ -254,7 +287,13 @@ Package [`@11ty/eleventy-cache-assets`](https://www.npmjs.com/package/@11ty/elev
 
 ### `debug`
 
+Type: `{Boolean}` Default: `false`
+
+Logs useful debug information to console when enabled.
+
 ## Fetching remote images
+
+...TODO
 
 ## Tests
 

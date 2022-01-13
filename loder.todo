@@ -1,7 +1,8 @@
+☐ Complete README.md for all options
 ☐ Create examples folder (and make some examples in it)
-☐ Purge cache
-☐ Add sharp image options
+☐ Add ability to purge cache after compilation completes
 ☐ Test with SVG images
+✔ Add sharp image options @done(22-01-12 15:13)
 ✔ Add concurrency options @done(22-01-12 07:17)
 ✔ Add option to set eleventy dependencies manually @done(22-01-12 07:18)
 ✔ Add ability to customize fetchUrl and fetchOptions before fetching images (options.beforeFetch). @done(21-12-15 15:52)
