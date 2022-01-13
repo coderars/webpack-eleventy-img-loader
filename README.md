@@ -10,7 +10,7 @@ UNOFFICIAL image loader built around [@11ty/eleventy-img][npm-eleventy-img] (use
 
 The purpose of this loader is to reduce dependencies for your [11ty](https://www.11ty.dev/) and [Webpack](https://webpack.js.org/) based projects. It'll use your existing 11ty packages, so there's no need for another image processor to handle images running through Webpack. Fewer dependencies mean faster builds.
 
->ℹ *Although `eleventy-img` can produce multiple output files for one input - with different formats and dimensions - the current version of this loader works in 1➡1 mode (generates one file for one input).*
+>ℹ *Although `eleventy-img` can produce multiple output files for one input - with different formats and dimensions - the current version of this loader works in 1→1 mode (generates one file for one input).*
 
 ## Installation
 
@@ -295,7 +295,42 @@ Logs useful debug information to console when enabled.
 
 ## Fetching remote images
 
-...TODO
+Thanks to [`eleventy-img`](https://www.11ty.dev/docs/plugins/image/#caching-remote-images-locally-new-in-image-0.3.0) this loader can download (fetch) - and even [cache](#cachedownloads) - remote images on-the-fly using local `.fetch` files. Why is this good? Because using them you can work with remote images - *probably on your headles CMS server* - as they would real local images. Also you can safely add [query params](#query-params) to the `.fetch` file.
+
+### Fetch files
+
+- A `.fetch` file is just a simple `JSON` file with the `url` of the remote image.
+- The `url` does not need to have a filename or extension.
+- The `url` can be modified using the [`beforeFetch`](#beforefetch) option. *Do not store tokens or passwords in fetch files!*
+- The `filename` of the `fetch` file will be used when naming the output file.
+- The original `extension` is determined by the `MIME Type` of the fetched image.
+- It's possible to change the default `"fetch"` extension using the  [`fetchFileExt`](#fetchfileext) option.
+
+### Example
+
+**my-cute-kitten.fetch:**
+
+```json
+{
+  "url": "https://loremflickr.com/1920/1080/kitten?lock=777"
+}
+```
+
+**example.css:**
+
+```css
+.example {
+  background-image: url('/assets/images/my-cute-kitten.fetch?width=320');
+}
+```
+
+**output:** (…using [`rename: '[oldname]-[width]w'`](#rename))
+
+```console
+my-cute-kitten-320w.jpeg
+```
+
+>👉 *In the example above the MIME Type of the remote image was `image/jpeg`, so the output format was kept unchanged because we didn't use the `format` [query param](#query-params) on the fetch file.*
 
 ## Tests
 
