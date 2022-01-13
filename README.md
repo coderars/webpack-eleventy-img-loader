@@ -14,8 +14,9 @@ The purpose of this loader is to reduce dependencies for your [11ty](https://www
 
 ## Installation
 
-```shell
-npm install webpack-eleventy-img-loader --save-dev
+```bash
+# Won't work, this package is not published yet!
+$ npm install webpack-eleventy-img-loader --save-dev
 ```
 
 ### Required dependencies
