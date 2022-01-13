@@ -1,6 +1,6 @@
 {
   "name": "webpack-eleventy-img-loader",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Webpack 5 image loader built around eleventy-img to convert and optimize images.",
   "author": {
     "name": "Zsolt Szegheő",
