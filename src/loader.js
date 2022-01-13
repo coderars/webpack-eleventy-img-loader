@@ -331,6 +331,7 @@ module.exports = async function(content) {
   const callback = this.async();
 
   // http://json-schema.org/draft/2020-12/json-schema-validation.html
+  // https://cswr.github.io/JsonSchema/
   const userOptions = this.getOptions(schema);
 
   new LoaderWorker(this, content, userOptions)

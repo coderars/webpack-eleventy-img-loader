@@ -6,9 +6,11 @@
 
 Requires Node 12+ and Webpack 5+
 
-UNOFFICIAL image loader built around [@11ty/eleventy-img](https://www.npmjs.com/package/@11ty/eleventy-img) (uses [sharp](https://sharp.pixelplumbing.com/)) to convert and optimize images. With the power of [`eleventy-img`](https://www.11ty.dev/docs/plugins/image/#usage) this loader can also download (and cache) remote images - e.g. from your headless CMS - using [fetch files](#fetching-remote-images).
+UNOFFICIAL image loader built around [@11ty/eleventy-img][npm-eleventy-img] (uses [sharp](https://sharp.pixelplumbing.com/)) to convert and optimize images. With the power of [`eleventy-img`](https://www.11ty.dev/docs/plugins/image/#usage) this loader can also download (and cache) remote images - e.g. from your headless CMS - using [fetch files](#fetching-remote-images).
 
 The purpose of this loader is to reduce dependencies for your [11ty](https://www.11ty.dev/) and [Webpack](https://webpack.js.org/) based projects. It'll use your existing 11ty packages, so there's no need for another image processor to handle images running through Webpack. Fewer dependencies mean faster builds.
+
+>ℹ *Although `eleventy-img` can produce multiple output files for one input - with different formats and dimensions - the current version of this loader works in 1➡1 mode (generates one file for one input).*
 
 ## Installation
 
@@ -21,8 +23,8 @@ npm install webpack-eleventy-img-loader --save-dev
 > ⚠ **This package has only `peerDependencies` as listed below, so probably you already have them in your 11ty based project — means no new dependencies will be installed in that case.**
 
 - [webpack](https://www.npmjs.com/package/webpack) — version ^5.0.0
-- [@11ty/eleventy-img](https://www.npmjs.com/package/@11ty/eleventy-img) — version ^1.0.0 — *([see option](#eleventyimage))*
-- [@11ty/eleventy-cache-assets](https://www.npmjs.com/package/@11ty/eleventy-cache-assets) — version ^2.3.0 — *([see option](#eleventycache))*
+- [@11ty/eleventy-img][npm-eleventy-img] — version ^1.0.0 — *([see option](#eleventyimage))*
+- [@11ty/eleventy-cache-assets][npm-eleventy-cache] — version ^2.3.0 — *([see option](#eleventycache))*
 
 ## Usage
 
@@ -252,7 +254,7 @@ Sets how long a cached item (output result / fetched remote image) is valid. Thi
 cacheDuration: "1d" // file expires after 1 day
 ```
 
-Where:
+**Where:**
 
 - `s` is seconds
 - `m` is minutes
@@ -277,13 +279,13 @@ Maximum number of concurrency image downloads in one time. If set, this option i
 
 Type: `{String|Object}` Default: `'@11ty/eleventy-img'`
 
-Package [`@11ty/eleventy-img`](https://www.npmjs.com/package/@11ty/eleventy-img) will be automatically loaded, but it's possible to set it manually if needed. Load it with `require` or give an exact `path` to the package.
+Package [`@11ty/eleventy-img`][npm-eleventy-img] will be automatically loaded, but it's possible to set it manually if needed. Load it with `require` or give an exact `path` to the package.
 
 ### `eleventyCache`
 
 Type: `{String|Object}` Default: `'@11ty/eleventy-cache-assets'`
 
-Package [`@11ty/eleventy-cache-assets`](https://www.npmjs.com/package/@11ty/eleventy-cache-assets) will be automatically loaded, but it's possible to set it manually if needed. Load it with `require` or give an exact `path` to the package.
+Package [`@11ty/eleventy-cache-assets`][npm-eleventy-cache] will be automatically loaded, but it's possible to set it manually if needed. Load it with `require` or give an exact `path` to the package.
 
 ### `debug`
 
@@ -308,3 +310,6 @@ npm run test
 ## Contributing
 
 This package uses [commitlint](https://commitlint.js.org/) to ensure proper commit messages. Please follow the rules declared in [@commitlint/config-conventional](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional).
+
+[npm-eleventy-img]: https://www.npmjs.com/package/@11ty/eleventy-img
+[npm-eleventy-cache]: https://www.npmjs.com/package/@11ty/eleventy-cache-assets

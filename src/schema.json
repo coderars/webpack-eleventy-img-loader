@@ -50,7 +50,8 @@
     "cacheDuration": {
       "description": "Sets how long a cached item (optimization/fetch result) is valid.",
       "link": "https://github.com/coderars/webpack-eleventy-img-loader#cacheduration",
-      "type": "string"
+      "type": "string",
+      "pattern": "^[0-9]+[smhdwy]{1}$"
     },
     "concurrency": {
       "description": "Maximum number of concurrency optimization processes in one time.",

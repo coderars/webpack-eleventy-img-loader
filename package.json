@@ -16,6 +16,9 @@
     "webpack",
     "webpack-loader"
   ],
+  "engines": {
+    "node": ">=12"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/coderars/webpack-eleventy-img-loader.git"
