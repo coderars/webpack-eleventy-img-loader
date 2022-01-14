@@ -5,23 +5,23 @@
   "properties": {
     "rename": {
       "description": "Rename mask for the output file, which will be the [name] placeholder for Asset Modules.",
-      "link": "https://github.com/coderars/webpack-eleventy-img-loader#rename",
+      "link": "https://github.com/szegheo/webpack-eleventy-img-loader#rename",
       "type": "string"
     },
     "fetchFileExt": {
       "description": "Allows to overwrite the default extension for fetch files (JSON format containing the URL to the remote image).",
-      "link": "https://github.com/coderars/webpack-eleventy-img-loader#fetchfileext",
+      "link": "https://github.com/szegheo/webpack-eleventy-img-loader#fetchfileext",
       "type": "string",
       "minLength": 3
     },
     "beforeFetch": {
       "description": "Allows to modify URL and fetchOptions before fetching a remote image.",
-      "link": "https://github.com/coderars/webpack-eleventy-img-loader#beforefetch",
+      "link": "https://github.com/szegheo/webpack-eleventy-img-loader#beforefetch",
       "instanceof": "Function"
     },
     "sharpConfig": {
       "description": "Allows to configure sharp optimization options in eleventy-img.",
-      "link": "https://github.com/coderars/webpack-eleventy-img-loader#sharpconfig",
+      "link": "https://github.com/szegheo/webpack-eleventy-img-loader#sharpconfig",
       "type": "object",
       "properties": {
         "sharpOptions": {"type": "object"},
@@ -34,38 +34,38 @@
     },
     "cacheDownloads": {
       "description": "Allows to store downloaded remote images in cacheDir.",
-      "link": "https://github.com/coderars/webpack-eleventy-img-loader#cachedownloads",
+      "link": "https://github.com/szegheo/webpack-eleventy-img-loader#cachedownloads",
       "type": "boolean"
     },
     "cacheResults": {
       "description": "Allows to store result (optimized) images in cacheDir.",
-      "link": "https://github.com/coderars/webpack-eleventy-img-loader#cacheresults",
+      "link": "https://github.com/szegheo/webpack-eleventy-img-loader#cacheresults",
       "type": "boolean"
     },
     "cacheDir": {
       "description": "A path where cache files will be stored (absolute path recommended).",
-      "link": "https://github.com/coderars/webpack-eleventy-img-loader#cachedir",
+      "link": "https://github.com/szegheo/webpack-eleventy-img-loader#cachedir",
       "type": "string"
     },
     "cacheDuration": {
       "description": "Sets how long a cached item (optimization/fetch result) is valid.",
-      "link": "https://github.com/coderars/webpack-eleventy-img-loader#cacheduration",
+      "link": "https://github.com/szegheo/webpack-eleventy-img-loader#cacheduration",
       "type": "string",
       "pattern": "^[0-9]+[smhdwy]{1}$"
     },
     "concurrency": {
       "description": "Maximum number of concurrency optimization processes in one time.",
-      "link": "https://github.com/coderars/webpack-eleventy-img-loader#concurrency",
+      "link": "https://github.com/szegheo/webpack-eleventy-img-loader#concurrency",
       "type": "number"
     },
     "fetchConcurrency": {
       "description": "Maximum number of concurrency image downloads in one time.",
-      "link": "https://github.com/coderars/webpack-eleventy-img-loader#fetchconcurrency",
+      "link": "https://github.com/szegheo/webpack-eleventy-img-loader#fetchconcurrency",
       "type": "number"
     },
     "eleventyImage": {
       "description": "Allows to manually require or set the eleventy-img dependency.",
-      "link": "https://github.com/coderars/webpack-eleventy-img-loader#eleventyimage",
+      "link": "https://github.com/szegheo/webpack-eleventy-img-loader#eleventyimage",
       "anyOf": [
         {
           "type": "string"
@@ -78,7 +78,7 @@
     },
     "eleventyCache": {
       "description": "Allows to manually require or set the eleventy-cache-assets dependency.",
-      "link": "https://github.com/coderars/webpack-eleventy-img-loader#eleventycache",
+      "link": "https://github.com/szegheo/webpack-eleventy-img-loader#eleventycache",
       "anyOf": [
         {
           "type": "string"
@@ -91,7 +91,7 @@
     },
     "debug": {
       "description": "Use debug mode (detailed console logs).",
-      "link": "https://github.com/coderars/webpack-eleventy-img-loader#debug",
+      "link": "https://github.com/szegheo/webpack-eleventy-img-loader#debug",
       "type": "boolean"
     }
   },

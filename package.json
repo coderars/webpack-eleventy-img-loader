@@ -5,7 +5,7 @@
   "author": {
     "name": "Zsolt Szegheő",
     "email": "szegheo@gmail.com",
-    "url": "https://github.com/coderars"
+    "url": "https://github.com/szegheo"
   },
   "license": "MIT",
   "keywords": [
@@ -21,12 +21,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/coderars/webpack-eleventy-img-loader.git"
+    "url": "git+https://github.com/szegheo/webpack-eleventy-img-loader.git"
   },
   "bugs": {
-    "url": "https://github.com/coderars/webpack-eleventy-img-loader/issues"
+    "url": "https://github.com/szegheo/webpack-eleventy-img-loader/issues"
   },
-  "homepage": "https://github.com/coderars/webpack-eleventy-img-loader#readme",
+  "homepage": "https://github.com/szegheo/webpack-eleventy-img-loader#readme",
   "main": "src/loader.js",
   "scripts": {
     "commitlint": "commitlint --from=main",
