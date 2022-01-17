@@ -1,6 +1,6 @@
 {
   "name": "@szegheo/webpack-eleventy-img-loader",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Webpack 5 image loader built around eleventy-img to convert and optimize images.",
   "author": {
     "name": "Zsolt Szegheő",
@@ -40,7 +40,7 @@
     "test": "eslint src/*.js test/**.js && ava",
     "posttest": "rimraf test/.cache/*",
     "prepare": "husky install",
-    "release": "standard-version"
+    "release": "npm run test && standard-version --no-verify"
   },
   "peerDependencies": {
     "@11ty/eleventy-cache-assets": "^2.3.0",
