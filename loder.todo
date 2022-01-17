@@ -1,7 +1,7 @@
-☐ Complete README.md for all options
+✔ Complete README.md for all options @done(22-01-14 09:56)
 ☐ Create examples folder (and make some examples in it)
-☐ Add ability to purge cache after compilation completes
-☐ Test with SVG images
+☐ Add ability to purge expired cache after compilation
+☐ Test with SVG images (all the formats supported by eleventy-img)
 ✔ Add sharp image options @done(22-01-12 15:13)
 ✔ Add concurrency options @done(22-01-12 07:17)
 ✔ Add option to set eleventy dependencies manually @done(22-01-12 07:18)

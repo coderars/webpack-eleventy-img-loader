@@ -1,11 +1,14 @@
 {
-  "name": "webpack-eleventy-img-loader",
+  "name": "@szegheo/webpack-eleventy-img-loader",
   "version": "0.0.3",
   "description": "Webpack 5 image loader built around eleventy-img to convert and optimize images.",
   "author": {
     "name": "Zsolt Szegheő",
     "email": "szegheo@gmail.com",
     "url": "https://github.com/szegheo"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "license": "MIT",
   "keywords": [
@@ -16,6 +19,10 @@
     "webpack",
     "webpack-loader"
   ],
+  "files": [
+    "src/"
+  ],
+  "main": "src/loader.js",
   "engines": {
     "node": ">=12"
   },
@@ -27,7 +34,6 @@
     "url": "https://github.com/szegheo/webpack-eleventy-img-loader/issues"
   },
   "homepage": "https://github.com/szegheo/webpack-eleventy-img-loader#readme",
-  "main": "src/loader.js",
   "scripts": {
     "commitlint": "commitlint --from=main",
     "pretest": "rimraf test/.cache/*",

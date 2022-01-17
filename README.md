@@ -2,11 +2,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat)](./LICENSE)
 
-⚠ THIS PACKAGE IS UNDER HEAVY DEVELOPMENT ⚠ USE WITH CAUTION ⚠
-
 Requires Node 12+ and Webpack 5+
 
-UNOFFICIAL image loader built around [@11ty/eleventy-img][npm-eleventy-img] (uses [sharp](https://sharp.pixelplumbing.com/)) to convert and optimize images. With the power of [`eleventy-img`](https://www.11ty.dev/docs/plugins/image/#usage) this loader can also download (and cache) remote images - e.g. from your headless CMS - using [fetch files](#fetching-remote-images).
+This is an image loader built around [@11ty/eleventy-img][npm-eleventy-img] (uses [sharp](https://sharp.pixelplumbing.com/)) to convert and optimize images. With the power of [`eleventy-img`](https://www.11ty.dev/docs/plugins/image/#usage) this loader can also download (and cache) remote images - e.g. from your headless CMS - using [fetch files](#fetching-remote-images).
 
 The purpose of this loader is to reduce dependencies for your [11ty](https://www.11ty.dev/) and [Webpack](https://webpack.js.org/) based projects. It'll use your existing 11ty packages, so there's no need for another image processor to handle images running through Webpack. Fewer dependencies mean faster builds.
 
@@ -15,13 +13,12 @@ The purpose of this loader is to reduce dependencies for your [11ty](https://www
 ## Installation
 
 ```bash
-# Won't work, this package is not published yet!
-$ npm install webpack-eleventy-img-loader --save-dev
+npm install @szegheo/webpack-eleventy-img-loader --save-dev
 ```
 
 ### Required dependencies
 
-> ⚠ **This package has only `peerDependencies` as listed below, so probably you already have them in your 11ty based project — means no new dependencies will be installed in that case.**
+>ℹ *This package has only `peerDependencies` as listed below, so probably you already have them in your 11ty based project — means no new dependencies will be installed in that case.*
 
 - [webpack](https://www.npmjs.com/package/webpack) — version ^5.0.0
 - [@11ty/eleventy-img][npm-eleventy-img] — version ^1.0.0 — *([see option](#eleventyimage))*
