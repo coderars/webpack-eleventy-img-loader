@@ -1,5 +1,7 @@
 # webpack-eleventy-img-loader
 
+[![npm][npm]][npm-url]
+[![node][node]][node-url]
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat)](./LICENSE)
 
 Requires Node 12+ and Webpack 5+
@@ -344,5 +346,9 @@ npm run test
 
 This package uses [commitlint](https://commitlint.js.org/) to ensure proper commit messages. Please follow the rules declared in [@commitlint/config-conventional](https://github.com/conventional-changelog/commitlint/tree/master/%40commitlint/config-conventional).
 
+[npm]: https://img.shields.io/npm/v/@szegheo/webpack-eleventy-img-loader.svg
+[npm-url]: https://www.npmjs.com/package/@szegheo/webpack-eleventy-img-loader
+[node]: https://img.shields.io/node/v/@szegheo/webpack-eleventy-img-loader.svg
+[node-url]: https://nodejs.org
 [npm-eleventy-img]: https://www.npmjs.com/package/@11ty/eleventy-img
 [npm-eleventy-cache]: https://www.npmjs.com/package/@11ty/eleventy-cache-assets
