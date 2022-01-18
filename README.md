@@ -99,7 +99,7 @@ By default the loader only does image optimization and keeps the original format
 import image from './demo.jpg?width=800&format=webp';
 ```
 
->ℹ *The current version of [eleventy-img](https://www.11ty.dev/docs/plugins/image/) does not support other modifications like setting `height` or `cropping` but a [features request](https://github.com/11ty/eleventy-img/issues/31) has already been open. Additional parameters are expected to be added.*
+>ℹ *The current version of [eleventy-img](https://www.11ty.dev/docs/plugins/image/) does not support other modifications like setting `height` or `cropping` but a [feature request](https://github.com/11ty/eleventy-img/issues/31) has already been open. Additional parameters are expected to be added.*
 
 ## Options
 
@@ -174,7 +174,7 @@ beforeFetch: (imageUrl, resourcePath) => {
 
 ```js
 beforeFetch: (imageUrl, resourcePath) => {
-  let newURL = new URL(url);
+  let newURL = new URL(imageUrl);
 
   newURL.username = process.env.SECRET_USER;
   newURL.password = process.env.SECRET_PWD;
